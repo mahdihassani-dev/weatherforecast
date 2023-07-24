@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_daily">
         <action
             android:id="@+id/action_dailyFragment_to_weeklyFragment"
-            app:destination="@id/weeklyFragment" />
+            app:destination="@id/weeklyFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_dailyFragment_self"
-            app:destination="@id/dailyFragment" />
+            app:destination="@id/dailyFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 
@@ -26,7 +30,9 @@
         tools:layout="@layout/fragment_weekly" >
         <action
             android:id="@+id/action_weeklyFragment_to_dailyFragment"
-            app:destination="@id/dailyFragment" />
+            app:destination="@id/dailyFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 

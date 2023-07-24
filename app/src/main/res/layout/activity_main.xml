@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:background="@color/pink_500">
 
-
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -23,7 +22,7 @@
             app:titleTextAppearance="@style/Toolbar.TitleText" />
 
 
-        <include layout="@layout/module_toolbar_information" />
+        <include android:id="@+id/module_toolbar_info" layout="@layout/module_toolbar_information" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/mChipGroup"

@@ -25,7 +25,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_pressure" />
+            android:src="@drawable/img_pressure" />
 
         <LinearLayout
             android:id="@+id/linear_info"
