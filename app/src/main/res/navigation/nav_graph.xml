@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dailyFragment">
+
+    <fragment
+        android:id="@+id/dailyFragment"
+        android:name="com.example.weatherapp.ui.DailyFragment"
+        android:label="fragment_daily"
+        tools:layout="@layout/fragment_daily">
+        <action
+            android:id="@+id/action_dailyFragment_to_weeklyFragment"
+            app:destination="@id/weeklyFragment" />
+        <action
+            android:id="@+id/action_dailyFragment_self"
+            app:destination="@id/dailyFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/weeklyFragment"
+        android:name="com.example.weatherapp.ui.WeeklyFragment"
+        android:label="fragment_weekly"
+        tools:layout="@layout/fragment_weekly" >
+        <action
+            android:id="@+id/action_weeklyFragment_to_dailyFragment"
+            app:destination="@id/dailyFragment" />
+    </fragment>
+
+
+</navigation>

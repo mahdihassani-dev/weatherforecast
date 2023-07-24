@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:strokeWidth="0dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_weight="1"
+    app:cardElevation="1dp"
+    android:paddingBottom="8dp"
+    android:backgroundTint="@color/pink_500"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/weather_state"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_uv" />
+
+        <LinearLayout
+            android:id="@+id/linear_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/weather_state"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingStart="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/uv_index"
+                style="@style/txtRegLow"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="2,3"
+                style="@style/txtRegLow"
+                android:id="@+id/txt_uvIndex"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_upOrDown_uvIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/linear_info"
+            android:layout_marginBottom="8dp"
+            android:layout_toEndOf="@id/linear_info"
+            android:gravity="top"
+            android:text="▲"
+            android:textColor="@color/purple"
+            android:textSize="11sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/txt_upOrDown_uvIndex"
+            android:layout_alignBottom="@id/txt_upOrDown_uvIndex"
+            android:layout_toEndOf="@id/txt_upOrDown_uvIndex"
+            android:text="0.3"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:id="@+id/uvIndex_change"/>
+
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

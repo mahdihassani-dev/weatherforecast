@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.DailyFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="8dp">
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <include
+                        android:id="@+id/item_wind_speed"
+                        layout="@layout/item_windspeed" />
+
+                    <include
+                        android:id="@+id/item_rain_chance"
+                        layout="@layout/item_rainchance" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <include
+                        android:id="@+id/item_pressure"
+                        layout="@layout/item_pressure" />
+
+                    <include
+                        android:id="@+id/item_uv_index"
+                        layout="@layout/item_uvindex" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/item_hourly_forecast"
+                layout="@layout/item_hourly_forecast" />
+
+            <include
+                android:id="@+id/item_lineChart"
+                layout="@layout/item_day_forecast" />
+
+            <include
+                android:id="@+id/item_barChart"
+                layout="@layout/item_rainchance_chart" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/item_sunrise"
+                    layout="@layout/item_sunrise" />
+
+                <include
+                    android:id="@+id/item_sunset"
+                    layout="@layout/item_sunset" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

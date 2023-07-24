@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
+
+    <TextView
+        android:id="@+id/tempTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3°"
+        style="@style/txtLarge" />
+
+    <TextView
+        android:id="@+id/feelLikeTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feels like -2"
+        style="@style/txtReg"
+        android:layout_toEndOf="@id/tempTitle"
+        android:layout_alignBottom="@id/tempTitle"
+        android:padding="8dp"/>
+
+    <ImageView
+        android:id="@+id/imgStateTitle"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_suncloud"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

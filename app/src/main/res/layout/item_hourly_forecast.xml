@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="1dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/pink_500"
+        android:padding="16dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_time"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/outline_access_time_24" />
+
+
+        <TextView
+            style="@style/txtReg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/img_time"
+            android:layout_alignBottom="@id/img_time"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/img_time"
+            android:gravity="center_vertical"
+            android:text="@string/hourly_forecast" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_time"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/txtClockNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/now"
+                    android:textColor="@color/black_low" />
+
+                <ImageView
+                    android:id="@+id/img_now_forecast"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_suncloud" />
+
+                <TextView
+                    android:id="@+id/temp_now_forecast"
+                    style="@style/txtRegLow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:text="10°" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/hour2_forecast"
+                        style="@style/txtClockNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textColor="@color/black_low" />
+
+                    <TextView
+                        android:id="@+id/time2_forecast"
+                        style="@style/txtClockWord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AM"
+                        android:textColor="@color/black_low"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img2_forecast"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_cloud" />
+
+                <TextView
+                    android:id="@+id/temp2_forecast"
+                    style="@style/txtRegLow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:text="8°" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/hour3_forecast"
+                        style="@style/txtClockNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="11"
+                        android:textColor="@color/black_low" />
+
+                    <TextView
+                        android:id="@+id/time3_forecast"
+                        style="@style/txtClockWord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AM"
+                        android:textColor="@color/black_low"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img3_forecast"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_cloud" />
+
+                <TextView
+                    android:id="@+id/temp3_forecast"
+                    style="@style/txtRegLow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:text="5°" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/hour4_forecast"
+                        style="@style/txtClockNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12"
+                        android:textColor="@color/black_low" />
+
+                    <TextView
+                        android:id="@+id/time4_forecast"
+                        style="@style/txtClockWord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PM"
+                        android:textColor="@color/black_low"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img4_forecast"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_suncloud" />
+
+                <TextView
+                    android:id="@+id/temp4_forecast"
+                    style="@style/txtRegLow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:text="12°" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/hour5_forecast"
+                        style="@style/txtClockNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="13"
+                        android:textColor="@color/black_low" />
+
+                    <TextView
+                        android:id="@+id/time5_forecast"
+                        style="@style/txtClockWord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PM"
+                        android:textColor="@color/black_low"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img5_forecast"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_suncloud" />
+
+                <TextView
+                    android:id="@+id/temp5_forecast"
+                    style="@style/txtRegLow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:text="9°" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/hour6_forecast"
+                        style="@style/txtClockNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="14"
+                        android:textColor="@color/black_low" />
+
+                    <TextView
+                        android:id="@+id/time6_forecast"
+                        style="@style/txtClockWord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PM"
+                        android:textColor="@color/black_low"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img6_forecast"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_cloud" />
+
+                <TextView
+                    android:id="@+id/temp6_forecast"
+                    style="@style/txtRegLow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:text="12°" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

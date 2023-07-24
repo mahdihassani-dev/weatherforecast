@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/mainAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink_500">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:menu="@menu/menu"
+            app:title="Yazd, Iran"
+            app:titleTextAppearance="@style/Toolbar.TitleText" />
+
+
+        <include layout="@layout/module_toolbar_information" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/mChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:checkable="true"
+                android:checked="true"
+                android:text="@string/today"
+                app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_tomorrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:checkable="true"
+                android:gravity="center"
+                android:text="@string/tomorrow"
+                app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_weekly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:checkable="true"
+                android:text="@string/weekly"
+                app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

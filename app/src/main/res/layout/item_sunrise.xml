@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_weight="1"
+    android:backgroundTint="@color/pink_500"
+    android:paddingBottom="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="1dp"
+    app:strokeWidth="0dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/weather_state"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_sunrise" />
+
+        <LinearLayout
+            android:id="@+id/linear_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/weather_state"
+            android:orientation="vertical"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                style="@style/txtRegLow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/sunrise" />
+
+
+            <TextView
+                style="@style/txtRegLow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="4:20 AM"
+                android:id="@+id/txt_sunrise"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/linear_info"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_toEndOf="@id/linear_info"
+            android:text="4h ago"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:id="@+id/sunrise_change"/>
+
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
