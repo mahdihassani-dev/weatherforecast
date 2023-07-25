@@ -33,6 +33,15 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"/>
 
+    <TextView
+        android:id="@+id/txt_error_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/please_check_your_internet_connection"
+        style="@style/txtError"
+        android:visibility="invisible"/>
+
 
 
 </RelativeLayout>

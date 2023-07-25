@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import com.example.weatherapp.databinding.FragmentDailyBinding
 import android.graphics.Color
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.weatherapp.utils.AxisLineFormatter
 import com.example.weatherapp.R
+import com.example.weatherapp.model.WeatherData
+import com.example.weatherapp.networking.ApiManager
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.MarkerView
@@ -24,12 +27,16 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import java.util.Calendar
+import java.util.TimeZone
 
 
 class DailyFragment : Fragment() {
 
 
     lateinit var binding: FragmentDailyBinding
+
+    private val apiManager = ApiManager()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +53,68 @@ class DailyFragment : Fragment() {
 
         setUpLineChart()
         setUpBarChart()
+        setGeneralInfo()
+
 
     }
+
+    private fun setGeneralInfo() {
+        apiManager.getGeneralData(object : ApiManager.MyApiCallBack<WeatherData>{
+            override fun onSuccess(data: WeatherData) {
+                setWindData(data)
+            }
+
+            override fun onFailure(error: String) {
+
+                Toast.makeText(this@DailyFragment.requireContext(), error, Toast.LENGTH_SHORT).show()
+
+            }
+        })
+    }
+    private fun setWindData(data: WeatherData){
+
+        binding.itemWindSpeed.txtWindSpeed.text = data.days[0].hours[getHourNow()].windspeed.toString() + " km/h"
+
+        val compareWindSpeed = data.days[0].hours[getHourNow()].windspeed.toBigDecimal() - data.days[0].hours[getPreviousHour()].windspeed.toBigDecimal()
+
+        if(compareWindSpeed.toDouble() > 0){
+            binding.itemWindSpeed.txtUpOrDownWindSpeed.text = "▲"
+        }
+        else if(compareWindSpeed.toDouble() == 0.0){
+            binding.itemWindSpeed.txtUpOrDownWindSpeed.text = ""
+        }else{
+            binding.itemWindSpeed.txtUpOrDownWindSpeed.text = "▼"
+        }
+
+        val absoluteCompareWindSpeed = compareWindSpeed.abs()
+        binding.itemWindSpeed.windSpeedChange.text = "$absoluteCompareWindSpeed Km/h"
+
+
+    }
+    private fun getHourNow() : Int{
+
+        val rightNow = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tehran"))
+        var currentHourIn24Format: Int =rightNow.get(Calendar.HOUR_OF_DAY)
+        if(currentHourIn24Format == 0){
+            currentHourIn24Format = 23
+        }else{
+            currentHourIn24Format -= 1
+        }
+
+        return currentHourIn24Format
+
+    }
+    private fun getPreviousHour() : Int{
+
+        val previousHour : Int = if(getHourNow() == 0){
+            23
+        }else{
+            getHourNow() -1
+        }
+
+        return previousHour
+    }
+
 
     private fun setUpLineChart() {
 
@@ -206,5 +273,8 @@ class DailyFragment : Fragment() {
         binding.itemBarChart.hourlyBarChart.invalidate()
 
     }
+
+
+
 
 }

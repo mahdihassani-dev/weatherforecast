@@ -13,5 +13,7 @@
 
     <color name="gray">#4B454D</color>
 
+    <color name="red_error">#E91E63</color>
+
 
 </resources>
