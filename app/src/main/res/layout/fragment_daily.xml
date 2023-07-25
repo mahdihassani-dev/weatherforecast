@@ -27,15 +27,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:weightSum="2">
 
                     <include
                         android:id="@+id/item_wind_speed"
-                        layout="@layout/item_windspeed" />
+                        layout="@layout/item_windspeed"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"/>
 
                     <include
                         android:id="@+id/item_rain_chance"
-                        layout="@layout/item_rainchance" />
+                        layout="@layout/item_rainchance"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"/>
 
                 </LinearLayout>
 
@@ -43,15 +54,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:weightSum="2">
 
                     <include
                         android:id="@+id/item_pressure"
-                        layout="@layout/item_pressure" />
+                        layout="@layout/item_pressure"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"/>
 
                     <include
                         android:id="@+id/item_uv_index"
-                        layout="@layout/item_uvindex" />
+                        layout="@layout/item_uvindex"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"/>
 
                 </LinearLayout>
 

@@ -59,63 +59,121 @@ class DailyFragment : Fragment() {
     }
 
     private fun setGeneralInfo() {
-        apiManager.getGeneralData(object : ApiManager.MyApiCallBack<WeatherData>{
+        apiManager.getGeneralData(object : ApiManager.MyApiCallBack<WeatherData> {
             override fun onSuccess(data: WeatherData) {
                 setWindData(data)
+                setRainChanceData(data)
+                setPressureData(data)
+                setUvIndexData(data)
             }
 
             override fun onFailure(error: String) {
 
-                Toast.makeText(this@DailyFragment.requireContext(), error, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DailyFragment.requireContext(), error, Toast.LENGTH_SHORT)
+                    .show()
 
             }
         })
     }
-    private fun setWindData(data: WeatherData){
+    private fun setWindData(data: WeatherData) {
 
-        binding.itemWindSpeed.txtWindSpeed.text = data.days[0].hours[getHourNow()].windspeed.toString() + " km/h"
+        binding.itemWindSpeed.txtWindSpeed.text =
+            data.days[0].hours[getHourNow()].windspeed.toString() + " km/h"
 
-        val compareWindSpeed = data.days[0].hours[getHourNow()].windspeed.toBigDecimal() - data.days[0].hours[getPreviousHour()].windspeed.toBigDecimal()
+        val compareWindSpeed =
+            data.days[0].hours[getHourNow()].windspeed.toBigDecimal() - data.days[0].hours[getPreviousHour()].windspeed.toBigDecimal()
 
-        if(compareWindSpeed.toDouble() > 0){
+        if (compareWindSpeed.toDouble() > 0) {
             binding.itemWindSpeed.txtUpOrDownWindSpeed.text = "▲"
-        }
-        else if(compareWindSpeed.toDouble() == 0.0){
+        } else if (compareWindSpeed.toDouble() == 0.0) {
             binding.itemWindSpeed.txtUpOrDownWindSpeed.text = ""
-        }else{
+        } else {
             binding.itemWindSpeed.txtUpOrDownWindSpeed.text = "▼"
         }
 
         val absoluteCompareWindSpeed = compareWindSpeed.abs()
-        binding.itemWindSpeed.windSpeedChange.text = "$absoluteCompareWindSpeed Km/h"
+        binding.itemWindSpeed.windSpeedChange.text = "$absoluteCompareWindSpeed"
 
 
     }
-    private fun getHourNow() : Int{
+    private fun setRainChanceData(data: WeatherData) {
 
-        val rightNow = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tehran"))
-        var currentHourIn24Format: Int =rightNow.get(Calendar.HOUR_OF_DAY)
-        if(currentHourIn24Format == 0){
-            currentHourIn24Format = 23
-        }else{
-            currentHourIn24Format -= 1
+        binding.itemRainChance.txtRainChance.text =
+            data.days[0].hours[getHourNow()].precipprob.toString() + "%"
+
+        val compareRainChance =
+            data.days[0].hours[getHourNow()].precipprob.toBigDecimal() - data.days[0].hours[getPreviousHour()].precipprob.toBigDecimal()
+
+        if (compareRainChance.toDouble() > 0) {
+            binding.itemRainChance.txtUpOrDownRainChance.text = "▲"
+        } else if (compareRainChance.toDouble() == 0.0) {
+            binding.itemRainChance.txtUpOrDownRainChance.text = ""
+        } else {
+            binding.itemRainChance.txtUpOrDownRainChance.text = "▼"
         }
 
-        return currentHourIn24Format
+        val absoluteCompareRainChance = compareRainChance.abs()
+        binding.itemRainChance.rainChanceChange.text = "$absoluteCompareRainChance"
 
     }
-    private fun getPreviousHour() : Int{
+    private fun setPressureData(data: WeatherData) {
 
-        val previousHour : Int = if(getHourNow() == 0){
+        binding.itemPressure.txtPressure.text =
+            data.days[0].hours[getHourNow()].pressure.toString() + " hpa"
+
+        val comparePressure =
+            data.days[0].hours[getHourNow()].pressure.toBigDecimal() - data.days[0].hours[getPreviousHour()].pressure.toBigDecimal()
+
+        if (comparePressure.toDouble() > 0) {
+            binding.itemPressure.txtUpOrDownPressure.text = "▲"
+        } else if (comparePressure.toDouble() == 0.0) {
+            binding.itemPressure.txtUpOrDownPressure.text = ""
+        } else {
+            binding.itemPressure.txtUpOrDownPressure.text = "▼"
+        }
+
+        val absoluteComparePressure = comparePressure.abs()
+        binding.itemPressure.pressureChange.text = "$absoluteComparePressure"
+
+
+    }
+    private fun setUvIndexData(data: WeatherData) {
+
+        binding.itemUvIndex.txtUvIndex.text = data.days[0].hours[getHourNow()].uvindex.toString()
+
+        val compareUvIndex =
+            data.days[0].hours[getHourNow()].uvindex.toBigDecimal() - data.days[0].hours[getPreviousHour()].uvindex.toBigDecimal()
+
+        if (compareUvIndex.toDouble() > 0) {
+            binding.itemUvIndex.txtUpOrDownUvIndex.text = "▲"
+        } else if (compareUvIndex.toDouble() == 0.0) {
+            binding.itemUvIndex.txtUpOrDownUvIndex.text = ""
+        } else {
+            binding.itemUvIndex.txtUpOrDownUvIndex.text = "▼"
+        }
+
+        val absoluteCompareUvIndex = compareUvIndex.abs()
+        binding.itemUvIndex.uvIndexChange.text = "$absoluteCompareUvIndex"
+
+
+    }
+    private fun getHourNow(): Int {
+
+        val rightNow = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tehran"))
+
+        return rightNow.get(Calendar.HOUR_OF_DAY)
+
+    }
+    private fun getPreviousHour(): Int {
+
+        val previousHour: Int = if (getHourNow() == 0) {
             23
-        }else{
-            getHourNow() -1
+        } else {
+            getHourNow() - 1
         }
 
         return previousHour
     }
-
-
     private fun setUpLineChart() {
 
         with(binding.itemLineChart.dayForecastLineChart) {
@@ -198,7 +256,6 @@ class DailyFragment : Fragment() {
         binding.itemLineChart.dayForecastLineChart.invalidate()
 
     }
-
     private fun setUpBarChart() {
 
         with(binding.itemBarChart.hourlyBarChart) {
@@ -241,7 +298,7 @@ class DailyFragment : Fragment() {
         }
 
     }
-    private fun barChartData() : ArrayList<BarEntry>{
+    private fun barChartData(): ArrayList<BarEntry> {
         val entries = ArrayList<BarEntry>()
         entries.add(BarEntry(0f, 27f))
         entries.add(BarEntry(1f, 45f))
@@ -273,8 +330,6 @@ class DailyFragment : Fragment() {
         binding.itemBarChart.hourlyBarChart.invalidate()
 
     }
-
-
 
 
 }

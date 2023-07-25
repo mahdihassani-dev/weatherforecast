@@ -5,9 +5,6 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="16dp"
     app:strokeWidth="0dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_weight="1"
     app:cardElevation="1dp"
     android:paddingBottom="8dp"
     android:backgroundTint="@color/pink_500"
@@ -35,7 +32,7 @@
             android:orientation="vertical"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:paddingStart="8dp">
+            android:paddingStart="4dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,22 +58,24 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/linear_info"
             android:layout_marginBottom="8dp"
-            android:layout_toEndOf="@id/linear_info"
+            android:layout_toStartOf="@id/uvIndex_change"
             android:gravity="top"
             android:text="▲"
             android:textColor="@color/purple"
-            android:textSize="11sp"/>
+            android:textSize="11sp"
+            android:layout_marginEnd="2dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/txt_upOrDown_uvIndex"
             android:layout_alignBottom="@id/txt_upOrDown_uvIndex"
-            android:layout_toEndOf="@id/txt_upOrDown_uvIndex"
+            android:layout_alignParentEnd="true"
             android:text="0.3"
             android:textColor="@color/black"
             android:textSize="11sp"
-            android:id="@+id/uvIndex_change"/>
+            android:id="@+id/uvIndex_change"
+            android:layout_marginEnd="4dp"/>
 
 
     </RelativeLayout>
