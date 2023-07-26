@@ -53,7 +53,6 @@ class DailyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setFiveHourLater()
-        setUpLineChart()
         setUpBarChart()
         setGeneralInfo()
 
@@ -68,6 +67,7 @@ class DailyFragment : Fragment() {
                 setPressureData(data)
                 setUvIndexData(data)
                 setHourlyForecast(data)
+                setUpLineChart(data)
 
             }
 
@@ -79,7 +79,6 @@ class DailyFragment : Fragment() {
             }
         })
     }
-
     private fun setWindData(data: WeatherData) {
 
         binding.itemWindSpeed.txtWindSpeed.text =
@@ -162,7 +161,6 @@ class DailyFragment : Fragment() {
 
 
     }
-
     private fun setHourlyForecast(data: WeatherData){
 
         setIconsAndTemps(data, getHourNow(), binding.itemHourlyForecast.imgNowForecast,binding.itemHourlyForecast.tempNowForecast)
@@ -228,7 +226,6 @@ class DailyFragment : Fragment() {
         return rightNow.get(Calendar.HOUR_OF_DAY)
 
     }
-
     private fun getPreviousHour(): Int {
 
         val previousHour: Int = if (getHourNow() == 0) {
@@ -239,7 +236,6 @@ class DailyFragment : Fragment() {
 
         return previousHour
     }
-
     private fun setFiveHourLater() {
 
         binding.itemHourlyForecast.hour2Forecast.text = get5HourAfter()[0].toString()
@@ -283,7 +279,7 @@ class DailyFragment : Fragment() {
         }
 
     }
-    private fun setUpLineChart() {
+    private fun setUpLineChart(data: WeatherData) {
 
         with(binding.itemLineChart.dayForecastLineChart) {
             animateX(1200, Easing.EaseInSine)
@@ -301,7 +297,7 @@ class DailyFragment : Fragment() {
             extraRightOffset = 30f
 
             axisLeft.granularity = 10F
-            axisLeft.axisMaximum = 10F
+            axisLeft.axisMaximum = 50F
             axisLeft.axisMinimum = -10F
             axisLeft.xOffset = 20f
             axisLeft.textSize = 11f
@@ -326,22 +322,23 @@ class DailyFragment : Fragment() {
 
         }
 
-        setDataToLineChart()
+        setDataToLineChart(data)
     }
-    private fun lineChartData(): ArrayList<Entry> {
+    private fun lineChartData(data: WeatherData): ArrayList<Entry> {
+
         val temps = ArrayList<Entry>()
-        temps.add(Entry(0f, -7f))
-        temps.add(Entry(1f, -2f))
-        temps.add(Entry(2f, -2f))
-        temps.add(Entry(3f, 1f))
-        temps.add(Entry(4f, 1f))
-        temps.add(Entry(5f, -1f))
-        temps.add(Entry(6f, 0f))
+        temps.add(Entry(0f, data.days[0].temp.toFloat()))
+        temps.add(Entry(1f, data.days[1].temp.toFloat()))
+        temps.add(Entry(2f, data.days[2].temp.toFloat()))
+        temps.add(Entry(3f, data.days[3].temp.toFloat()))
+        temps.add(Entry(4f, data.days[4].temp.toFloat()))
+        temps.add(Entry(5f, data.days[5].temp.toFloat()))
+        temps.add(Entry(6f, data.days[6].temp.toFloat()))
         return temps
     }
-    private fun setDataToLineChart() {
+    private fun setDataToLineChart(data: WeatherData) {
 
-        val weekTemps = LineDataSet(lineChartData(), "")
+        val weekTemps = LineDataSet(lineChartData(data), "")
         weekTemps.lineWidth = 2f
         weekTemps.valueTextSize = 16f
         weekTemps.mode = LineDataSet.Mode.CUBIC_BEZIER
@@ -365,7 +362,6 @@ class DailyFragment : Fragment() {
         binding.itemLineChart.dayForecastLineChart.invalidate()
 
     }
-
     private fun setUpBarChart() {
 
         with(binding.itemBarChart.hourlyBarChart) {
@@ -409,7 +405,6 @@ class DailyFragment : Fragment() {
         }
 
     }
-
     private fun barChartData(): ArrayList<BarEntry> {
         val entries = ArrayList<BarEntry>()
         entries.add(BarEntry(0f, 27f))
@@ -419,7 +414,6 @@ class DailyFragment : Fragment() {
 
         return entries
     }
-
     private fun setDataToBarChart() {
 
         val barDataSet = BarDataSet(barChartData(), "Bar Data Set")

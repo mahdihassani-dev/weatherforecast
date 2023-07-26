@@ -11,7 +11,7 @@ interface ApiService {
 
     @GET("{location}/")
     fun getGeneralWeatherData(
-        @Path("location") location:String = "yazd",
+        @Path("location") location:String = "Rasht",
         @Query("unitGroup") unitGroup: String = "metric",
         @Query("key") key:String = API_KEY
 
