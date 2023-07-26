@@ -40,7 +40,6 @@
 
     <style name="txtClockNum" parent="WeatherTxt">
         <item name="android:textColor">@color/black_low</item>
-        <item name="android:textStyle">italic</item>
         <item name="android:textSize">16sp</item>
     </style>
 

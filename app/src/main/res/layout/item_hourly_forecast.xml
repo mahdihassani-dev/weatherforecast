@@ -61,7 +61,8 @@
                     android:id="@+id/img_now_forecast"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp" />
 
                 <TextView
                     android:id="@+id/temp_now_forecast"
@@ -109,7 +110,8 @@
                     android:id="@+id/img2_forecast"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp" />
 
                 <TextView
                     android:id="@+id/temp2_forecast"
@@ -157,7 +159,8 @@
                     android:id="@+id/img3_forecast"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp" />
 
                 <TextView
                     android:id="@+id/temp3_forecast"
@@ -205,7 +208,8 @@
                     android:id="@+id/img4_forecast"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp" />
 
                 <TextView
                     android:id="@+id/temp4_forecast"
@@ -253,7 +257,8 @@
                     android:id="@+id/img5_forecast"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp" />
 
                 <TextView
                     android:id="@+id/temp5_forecast"
@@ -301,7 +306,8 @@
                     android:id="@+id/img6_forecast"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp" />
 
                 <TextView
                     android:id="@+id/temp6_forecast"

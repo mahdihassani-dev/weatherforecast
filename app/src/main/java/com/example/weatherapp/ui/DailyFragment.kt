@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.weatherapp.databinding.FragmentDailyBinding
 import android.graphics.Color
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -51,6 +52,7 @@ class DailyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setFiveHourLater()
         setUpLineChart()
         setUpBarChart()
         setGeneralInfo()
@@ -65,6 +67,8 @@ class DailyFragment : Fragment() {
                 setRainChanceData(data)
                 setPressureData(data)
                 setUvIndexData(data)
+                setHourlyForecast(data)
+
             }
 
             override fun onFailure(error: String) {
@@ -75,6 +79,7 @@ class DailyFragment : Fragment() {
             }
         })
     }
+
     private fun setWindData(data: WeatherData) {
 
         binding.itemWindSpeed.txtWindSpeed.text =
@@ -157,6 +162,65 @@ class DailyFragment : Fragment() {
 
 
     }
+
+    private fun setHourlyForecast(data: WeatherData){
+
+        setIconsAndTemps(data, getHourNow(), binding.itemHourlyForecast.imgNowForecast,binding.itemHourlyForecast.tempNowForecast)
+        setIconsAndTemps(data, get5HourAfter()[0], binding.itemHourlyForecast.img2Forecast, binding.itemHourlyForecast.temp2Forecast)
+        setIconsAndTemps(data, get5HourAfter()[1], binding.itemHourlyForecast.img3Forecast, binding.itemHourlyForecast.temp3Forecast)
+        setIconsAndTemps(data, get5HourAfter()[2], binding.itemHourlyForecast.img4Forecast, binding.itemHourlyForecast.temp4Forecast)
+        setIconsAndTemps(data, get5HourAfter()[3], binding.itemHourlyForecast.img5Forecast, binding.itemHourlyForecast.temp5Forecast)
+        setIconsAndTemps(data, get5HourAfter()[4], binding.itemHourlyForecast.img6Forecast, binding.itemHourlyForecast.temp6Forecast)
+
+
+
+    }
+    private fun setIconsAndTemps(data: WeatherData, i:Int, imgIcon : ImageView, txtTemp : TextView){
+
+        when (data.days[0].hours[i].icon) {
+
+            "snow" -> {
+                imgIcon.setImageResource(R.drawable.snow)
+            }
+
+            "rain" -> {
+                imgIcon.setImageResource(R.drawable.rain)
+            }
+
+            "fog" -> {
+                imgIcon.setImageResource(R.drawable.fog)
+            }
+
+            "wind" -> {
+                imgIcon.setImageResource(R.drawable.wind)
+            }
+
+            "cloudy" -> {
+                imgIcon.setImageResource(R.drawable.cloudy)
+            }
+
+            "partly-cloudy-day" -> {
+                imgIcon.setImageResource(R.drawable.partly_cloudy_day)
+            }
+
+            "partly-cloudy-night" -> {
+                imgIcon.setImageResource(R.drawable.partly_cloudy_night)
+            }
+
+            "clear-day" -> {
+                imgIcon.setImageResource(R.drawable.clear_day)
+            }
+
+            "clear-night" -> {
+                imgIcon.setImageResource(R.drawable.clear_night)
+            }
+
+
+        }
+
+        txtTemp.text = data.days[0].hours[i].temp.toString()
+
+    }
     private fun getHourNow(): Int {
 
         val rightNow = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tehran"))
@@ -164,6 +228,7 @@ class DailyFragment : Fragment() {
         return rightNow.get(Calendar.HOUR_OF_DAY)
 
     }
+
     private fun getPreviousHour(): Int {
 
         val previousHour: Int = if (getHourNow() == 0) {
@@ -173,6 +238,50 @@ class DailyFragment : Fragment() {
         }
 
         return previousHour
+    }
+
+    private fun setFiveHourLater() {
+
+        binding.itemHourlyForecast.hour2Forecast.text = get5HourAfter()[0].toString()
+        binding.itemHourlyForecast.hour3Forecast.text = get5HourAfter()[1].toString()
+        binding.itemHourlyForecast.hour4Forecast.text = get5HourAfter()[2].toString()
+        binding.itemHourlyForecast.hour5Forecast.text = get5HourAfter()[3].toString()
+        binding.itemHourlyForecast.hour6Forecast.text = get5HourAfter()[4].toString()
+
+        getAmOrPm(binding.itemHourlyForecast.time2Forecast ,binding.itemHourlyForecast.hour2Forecast)
+        getAmOrPm(binding.itemHourlyForecast.time3Forecast ,binding.itemHourlyForecast.hour3Forecast)
+        getAmOrPm(binding.itemHourlyForecast.time4Forecast ,binding.itemHourlyForecast.hour4Forecast)
+        getAmOrPm(binding.itemHourlyForecast.time5Forecast ,binding.itemHourlyForecast.hour5Forecast)
+        getAmOrPm(binding.itemHourlyForecast.time6Forecast ,binding.itemHourlyForecast.hour6Forecast)
+
+    }
+    private fun get5HourAfter(): ArrayList<Int> {
+
+        val fiveHourAfter = arrayListOf<Int>()
+
+        for (i in 1..5) {
+
+            var hour = getHourNow() + i
+
+            if (hour == 24) {
+                hour = 0
+            }
+
+            fiveHourAfter.add(hour)
+
+        }
+
+        return fiveHourAfter
+
+    }
+    private fun getAmOrPm(tvTime: TextView, tvHour: TextView) {
+
+        if (tvHour.text.toString().toInt() <= 12){
+            tvTime.text = "Am"
+        }else{
+            tvTime.text = "Pm"
+        }
+
     }
     private fun setUpLineChart() {
 
@@ -256,6 +365,7 @@ class DailyFragment : Fragment() {
         binding.itemLineChart.dayForecastLineChart.invalidate()
 
     }
+
     private fun setUpBarChart() {
 
         with(binding.itemBarChart.hourlyBarChart) {
@@ -279,7 +389,7 @@ class DailyFragment : Fragment() {
             isDoubleTapToZoomEnabled = false
             setTouchEnabled(false)
 
-            val values = arrayOf("10 PM", "9 PM", "8 PM", "7 PM")
+            val values = arrayOf("7:00", "8:00", "9:00", "10:00")
             xAxis.valueFormatter = (object : ValueFormatter() {
 
                 override fun getFormattedValue(value: Float): String {
@@ -288,6 +398,7 @@ class DailyFragment : Fragment() {
 
             })
 
+            xAxis.setLabelCount(4)
 
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.textSize = 12f
@@ -298,6 +409,7 @@ class DailyFragment : Fragment() {
         }
 
     }
+
     private fun barChartData(): ArrayList<BarEntry> {
         val entries = ArrayList<BarEntry>()
         entries.add(BarEntry(0f, 27f))
@@ -307,6 +419,7 @@ class DailyFragment : Fragment() {
 
         return entries
     }
+
     private fun setDataToBarChart() {
 
         val barDataSet = BarDataSet(barChartData(), "Bar Data Set")
