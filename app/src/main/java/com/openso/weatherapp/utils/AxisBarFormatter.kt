@@ -1,7 +1,6 @@
-package com.example.weatherapp.utils
+package com.openso.weatherapp.utils
 
 import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 
 

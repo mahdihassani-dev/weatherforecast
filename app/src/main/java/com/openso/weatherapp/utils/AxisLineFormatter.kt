@@ -1,6 +1,5 @@
-package com.example.weatherapp.utils
+package com.openso.weatherapp.utils
 
-import android.util.Log
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import java.text.SimpleDateFormat
@@ -31,8 +30,6 @@ class AxisLineFormatter : IndexAxisValueFormatter() {
     private fun getWeekDay() : ArrayList<String>{
 
         var first = items.indexOf(getToday())
-
-        Log.i("testDay", getToday())
 
         val weekDay = arrayListOf<String>()
         weekDay.add(items[first])

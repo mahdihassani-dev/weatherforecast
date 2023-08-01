@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/mainAppBar"
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             app:menu="@menu/menu"
-            app:title="Yazd, Iran"
+            app:title="Time Zone"
             app:titleTextAppearance="@style/Toolbar.TitleText" />
 
 
@@ -41,7 +40,8 @@
                 android:checkable="true"
                 android:checked="true"
                 android:text="@string/today"
-                app:chipBackgroundColor="@color/bg_chip_state_list" />
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                android:enabled="false"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_tomorrow"
@@ -52,7 +52,8 @@
                 android:checkable="true"
                 android:gravity="center"
                 android:text="@string/tomorrow"
-                app:chipBackgroundColor="@color/bg_chip_state_list" />
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                android:enabled="false"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_weekly"
@@ -61,7 +62,8 @@
                 android:layout_marginStart="4dp"
                 android:checkable="true"
                 android:text="@string/weekly"
-                app:chipBackgroundColor="@color/bg_chip_state_list" />
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                android:enabled="false"/>
 
         </com.google.android.material.chip.ChipGroup>
 

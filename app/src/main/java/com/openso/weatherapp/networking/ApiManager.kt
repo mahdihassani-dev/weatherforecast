@@ -1,6 +1,6 @@
-package com.example.weatherapp.networking
+package com.openso.weatherapp.networking
 
-import com.example.weatherapp.model.WeatherData
+import com.openso.weatherapp.model.WeatherData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,9 +23,9 @@ class ApiManager {
 
     }
 
-    fun getGeneralData(apiCallBack : MyApiCallBack<WeatherData>){
+    fun getGeneralData(location : String ,apiCallBack : MyApiCallBack<WeatherData>){
 
-        apiService.getGeneralWeatherData().enqueue(object  : Callback<WeatherData> {
+        apiService.getGeneralWeatherData(location).enqueue(object  : Callback<WeatherData> {
             override fun onResponse(call: Call<WeatherData>, response: Response<WeatherData>) {
 
                 apiCallBack.onSuccess(response.body()!!)

@@ -3,47 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="219dp"
-    android:backgroundTint="@color/pink_500"
-    app:cardCornerRadius="16dp"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
     android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    app:cardCornerRadius="16dp"
     app:cardElevation="1dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shim_dayForeCast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:shimmer_colored="true">
 
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/img_calender"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/outline_calendar_month_24"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/day_forecast"
-            android:layout_toEndOf="@id/img_calender"
-            android:layout_alignTop="@id/img_calender"
-            android:layout_alignBottom="@id/img_calender"
-            android:gravity="center_vertical"
-            android:layout_marginStart="8dp"
-            style="@style/txtReg"/>
-
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/dayForecastLineChart"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/img_calender"
-            android:layout_marginTop="8dp"/>
+            android:padding="16dp"
+            android:background="@color/pink_500">
 
 
-    </RelativeLayout>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_calender"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/outline_calendar_month_24" />
+
+            <TextView
+                style="@style/txtReg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/img_calender"
+                android:layout_alignBottom="@id/img_calender"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/img_calender"
+                android:gravity="center_vertical"
+                android:text="@string/day_forecast" />
+
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/dayForecastLineChart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/img_calender"
+                android:layout_marginTop="8dp" />
+
+
+        </RelativeLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
 </androidx.cardview.widget.CardView>

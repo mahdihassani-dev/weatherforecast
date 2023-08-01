@@ -1,4 +1,4 @@
-package com.example.weatherapp.networking
+package com.openso.weatherapp.networking
 
 
 const val API_KEY = "5TKFYNCDKRAXJWY42Z8VA2V33"

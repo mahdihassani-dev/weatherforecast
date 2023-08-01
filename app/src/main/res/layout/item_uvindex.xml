@@ -7,14 +7,22 @@
     app:strokeWidth="0dp"
     app:cardElevation="1dp"
     android:paddingBottom="8dp"
-    android:backgroundTint="@color/pink_500"
+    app:cardUseCompatPadding="true"
     >
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shim_uvIndex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:shimmer_colored="true">
+
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
+        android:background="@color/pink_500"
         >
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -79,5 +87,7 @@
 
 
     </RelativeLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </com.google.android.material.card.MaterialCardView>

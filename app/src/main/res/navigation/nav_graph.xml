@@ -7,14 +7,14 @@
 
     <fragment
         android:id="@+id/dailyFragment"
-        android:name="com.example.weatherapp.ui.DailyFragment"
+        android:name="com.openso.weatherapp.ui.DailyFragment"
         android:label="fragment_daily"
         tools:layout="@layout/fragment_daily">
         <action
             android:id="@+id/action_dailyFragment_to_weeklyFragment"
             app:destination="@id/weeklyFragment"
             app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_dailyFragment_self"
             app:destination="@id/dailyFragment"
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/weeklyFragment"
-        android:name="com.example.weatherapp.ui.WeeklyFragment"
+        android:name="com.openso.weatherapp.ui.WeeklyFragment"
         android:label="fragment_weekly"
         tools:layout="@layout/fragment_weekly" >
         <action
@@ -33,6 +33,9 @@
             app:destination="@id/dailyFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"/>
+
+        <argument android:name="name"
+            app:argType="string"/>
     </fragment>
 
 

@@ -10,6 +10,12 @@
     app:cardElevation="1dp"
     app:strokeWidth="0dp">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shim_rainChanceChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:shimmer_colored="true">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -44,6 +50,8 @@
 
 
     </RelativeLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
 </com.google.android.material.card.MaterialCardView>
