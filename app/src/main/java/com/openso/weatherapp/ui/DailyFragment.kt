@@ -76,7 +76,7 @@ class DailyFragment : Fragment() {
 
         sharedPreferences = requireActivity().getSharedPreferences("ShPref", Context.MODE_PRIVATE)
         editor = sharedPreferences!!.edit()
-        location = sharedPreferences!!.getString(CACHE_LOCATION, "")
+        location = sharedPreferences!!.getString(CACHE_LOCATION, "Yazd")
 
     }
 

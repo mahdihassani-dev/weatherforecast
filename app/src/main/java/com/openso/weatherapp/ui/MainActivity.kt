@@ -14,7 +14,7 @@ private const val TAG = "MainTest"
 const val CACHE_LOCATION = "cache_loc"
 const val CHIP_CHANGE = "chip_changes"
 
-class MainActivity : AppCompatActivity() , MapFragmentDialog.GetLatLng, DailyFragment.SendWeatherData{
+class MainActivity : AppCompatActivity() , MapFragmentDialog.GetLatLng, DailyFragment.SendWeatherData, WeeklyFragment.DataLoaded{
 
     lateinit var binding: ActivityMainBinding
 
@@ -190,5 +190,12 @@ class MainActivity : AppCompatActivity() , MapFragmentDialog.GetLatLng, DailyFra
         setToolbarData(data, infoCode)
     }
 
+    override fun loaded() {
+        
+        handleChipAbility(true)
+
+    }
+
 
 }
+
