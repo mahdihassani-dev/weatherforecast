@@ -3,6 +3,7 @@ package com.openso.weatherapp.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -120,6 +121,24 @@ class MainActivity : AppCompatActivity() , MapFragmentDialog.GetLatLng, DailyFra
 
 
     }
+
+    private fun handleToolbarInfoVisibility(shouldVisible : Boolean){
+
+        if(shouldVisible){
+
+            binding.moduleToolbarInfo.imgStateTitle.visibility = View.VISIBLE
+            binding.moduleToolbarInfo.tempTitle.visibility = View.VISIBLE
+            binding.moduleToolbarInfo.feelLikeTemp.visibility = View.VISIBLE
+
+        }else{
+
+            binding.moduleToolbarInfo.imgStateTitle.visibility = View.INVISIBLE
+            binding.moduleToolbarInfo.tempTitle.visibility = View.INVISIBLE
+            binding.moduleToolbarInfo.feelLikeTemp.visibility = View.INVISIBLE
+
+        }
+
+    }
     private fun handleFragmentMovements() {
 
         val bundle = Bundle()
@@ -143,6 +162,7 @@ class MainActivity : AppCompatActivity() , MapFragmentDialog.GetLatLng, DailyFra
                     }
 
                     bundle.putInt(CHIP_CHANGE, 0)
+                    handleToolbarInfoVisibility(true)
 
                 }
 
@@ -160,6 +180,7 @@ class MainActivity : AppCompatActivity() , MapFragmentDialog.GetLatLng, DailyFra
                     }
 
                     bundle.putInt(CHIP_CHANGE, 1)
+                    handleToolbarInfoVisibility(true)
 
                 }
 
@@ -167,6 +188,8 @@ class MainActivity : AppCompatActivity() , MapFragmentDialog.GetLatLng, DailyFra
 
                     Navigation.findNavController(binding.fragmentContainerView)
                         .navigate(R.id.action_dailyFragment_to_weeklyFragment)
+
+                    handleToolbarInfoVisibility(false)
 
                 }
 
@@ -179,7 +202,14 @@ class MainActivity : AppCompatActivity() , MapFragmentDialog.GetLatLng, DailyFra
     }
     override fun onSelected(latLng: String) {
 
-        findNavController(R.id.fragmentContainerView).setGraph(R.navigation.nav_graph)
+
+        if(binding.chipWeekly.isChecked){
+            findNavController(R.id.fragmentContainerView).navigate(R.id.action_weeklyFragment_self)
+        }else{
+            findNavController(R.id.fragmentContainerView).setGraph(R.navigation.nav_graph)
+        }
+
+
 
         editor!!.clear()
         editor!!.putString(CACHE_LOCATION, latLng)

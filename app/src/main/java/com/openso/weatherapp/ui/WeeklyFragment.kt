@@ -36,7 +36,7 @@ class WeeklyFragment : Fragment() {
     private val items =
         arrayListOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
-    private var dataLoadedCallback : DataLoaded ?= null
+    private var dataLoadedCallback: DataLoaded? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,9 +54,31 @@ class WeeklyFragment : Fragment() {
         setSharedPref()
 
         dataLoadedCallback = activity as DataLoaded
+
+
+        showItemsBeforeResponse()
         setWeeklyData(location!!)
 
     }
+
+    private fun showItemsBeforeResponse() {
+
+        dataSet.add(WeeklyItemData("", "", 0, "", ""))
+        dataSet.add(WeeklyItemData("", "", 0, "", ""))
+        dataSet.add(WeeklyItemData("", "", 0, "", ""))
+        dataSet.add(WeeklyItemData("", "", 0, "", ""))
+        dataSet.add(WeeklyItemData("", "", 0, "", ""))
+        dataSet.add(WeeklyItemData("", "", 0, "", ""))
+        dataSet.add(WeeklyItemData("", "", 0, "", ""))
+
+        val adapter = WeeklyRecyclerAdapter(dataSet, false)
+
+        binding.weeklyRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.weeklyRecyclerView.adapter = adapter
+
+
+    }
+
 
     private fun getToday(): String {
 
@@ -97,6 +119,8 @@ class WeeklyFragment : Fragment() {
         apiManager.getGeneralData(location, object : ApiManager.MyApiCallBack<WeatherData> {
             override fun onSuccess(data: WeatherData) {
 
+                dataSet.clear()
+
                 dataSet.add(setWeeklyItems(data, 0))
                 dataSet.add(setWeeklyItems(data, 1))
                 dataSet.add(setWeeklyItems(data, 2))
@@ -105,7 +129,7 @@ class WeeklyFragment : Fragment() {
                 dataSet.add(setWeeklyItems(data, 5))
                 dataSet.add(setWeeklyItems(data, 6))
 
-                val adapter = WeeklyRecyclerAdapter(dataSet)
+                val adapter = WeeklyRecyclerAdapter(dataSet, true)
 
                 binding.weeklyRecyclerView.layoutManager = LinearLayoutManager(context)
                 binding.weeklyRecyclerView.adapter = adapter
@@ -120,6 +144,7 @@ class WeeklyFragment : Fragment() {
                 Toast.makeText(context, error, Toast.LENGTH_LONG).show()
 
             }
+
         })
 
     }

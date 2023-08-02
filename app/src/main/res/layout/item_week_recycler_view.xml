@@ -4,74 +4,82 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
     android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
     android:layout_marginBottom="8dp"
-    android:backgroundTint="@color/pink_500"
     app:cardCornerRadius="16dp"
     app:strokeWidth="0dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shim_item_recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:shimmer_colored="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:background="@color/pink_500">
 
 
-        <TextView
-            android:id="@+id/txt_week_day"
-            style="@style/txtReg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Today" />
+            <TextView
+                android:id="@+id/txt_week_day"
+                style="@style/txtReg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today" />
 
-        <TextView
-            android:id="@+id/txt_week_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Cloudy and Sunny"
-            android:layout_below="@id/txt_week_day"/>
-
-
-        <ImageView
-            android:id="@+id/img_week_state"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"/>
-
-        <View
-            android:id="@+id/view_line"
-            android:layout_width="1dp"
-            android:layout_height="48dp"
-            android:layout_alignTop="@id/txt_week_max"
-            android:layout_alignBottom="@id/txt_week_min"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="12dp"
-            android:layout_toStartOf="@id/img_week_state"
-            android:background="@color/gray" />
-
-        <TextView
-            android:id="@+id/txt_week_max"
-            style="@style/txtReg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/txt_week_day"
-            android:layout_marginEnd="12dp"
-            android:layout_toStartOf="@id/view_line"
-            android:text="3°" />
-
-        <TextView
-            android:id="@+id/txt_week_min"
-            style="@style/txtReg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_week_max"
-            android:layout_alignEnd="@id/txt_week_max"
-            android:layout_marginTop="8dp"
-            android:text="-2°" />
+            <TextView
+                android:id="@+id/txt_week_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_week_day"
+                android:layout_marginTop="8dp"
+                android:text="Cloudy and Sunny" />
 
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/img_week_state"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="1dp"
+                android:layout_height="48dp"
+                android:layout_alignTop="@id/txt_week_max"
+                android:layout_alignBottom="@id/txt_week_min"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:layout_toStartOf="@id/img_week_state"
+                android:background="@color/gray" />
+
+            <TextView
+                android:id="@+id/txt_week_max"
+                style="@style/txtReg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/txt_week_day"
+                android:layout_marginEnd="12dp"
+                android:layout_toStartOf="@id/view_line"
+                android:text="3°" />
+
+            <TextView
+                android:id="@+id/txt_week_min"
+                style="@style/txtReg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_week_max"
+                android:layout_alignEnd="@id/txt_week_max"
+                android:layout_marginTop="8dp"
+                android:text="-2°" />
+
+
+        </RelativeLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </com.google.android.material.card.MaterialCardView>

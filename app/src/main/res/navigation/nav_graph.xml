@@ -36,6 +36,9 @@
 
         <argument android:name="name"
             app:argType="string"/>
+        <action
+            android:id="@+id/action_weeklyFragment_self"
+            app:destination="@id/weeklyFragment" />
     </fragment>
 
 
