@@ -1,6 +1,7 @@
 package com.openso.weatherapp.networking
 
 import com.openso.weatherapp.model.WeatherData
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,7 +15,7 @@ interface ApiService {
         @Query("unitGroup") unitGroup: String = "metric",
         @Query("key") key:String = API_KEY
 
-    ) : Call<WeatherData>
+    ) : Single<WeatherData>
 
 
 }

@@ -113,6 +113,7 @@ class DailyFragment : Fragment() {
                     .setPositiveButton("Refresh"
                     ) { p0, p1 -> setGeneralInfo(location)
                     p0.dismiss()}
+                    .setCancelable(false)
                     .show()
             }
         })
