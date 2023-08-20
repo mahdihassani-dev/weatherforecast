@@ -1,4 +1,4 @@
-package com.openso.weatherapp.ui
+package com.openso.weatherapp.view
 
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.setFragmentResult
 import com.carto.styles.AnimationStyle
 import com.carto.styles.AnimationStyleBuilder
 import com.carto.styles.AnimationType

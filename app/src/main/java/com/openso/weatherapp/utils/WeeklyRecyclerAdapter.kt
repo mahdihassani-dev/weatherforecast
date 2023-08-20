@@ -1,14 +1,11 @@
 package com.openso.weatherapp.utils
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.openso.weatherapp.databinding.ItemWeekRecyclerViewBinding
 import com.openso.weatherapp.model.WeeklyItemData
-import com.openso.weatherapp.ui.WeeklyFragment
 
 class WeeklyRecyclerAdapter(private val dataset : ArrayList<WeeklyItemData>, private val shouldHide : Boolean) : Adapter<WeeklyRecyclerAdapter.ViewHolder>() {
 

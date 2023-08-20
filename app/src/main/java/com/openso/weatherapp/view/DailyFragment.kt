@@ -1,10 +1,11 @@
-package com.openso.weatherapp.ui
+package com.openso.weatherapp.view
 
 import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,10 +30,19 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.openso.weatherapp.R
 import com.openso.weatherapp.databinding.FragmentDailyBinding
 import com.openso.weatherapp.model.WeatherData
-import com.openso.weatherapp.networking.ApiManager
+import com.openso.weatherapp.model.MainRepository
 import com.openso.weatherapp.utils.AxisLineFormatter
+import com.openso.weatherapp.utils.showToast
+import com.openso.weatherapp.utils.synchronization
+import com.openso.weatherapp.viewmodel.DataViewModel
+import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import java.util.Calendar
 import java.util.TimeZone
+
+private const val TAG = "TestDaily"
 
 class DailyFragment : Fragment() {
 
@@ -46,8 +56,9 @@ class DailyFragment : Fragment() {
     private var sendDataCallBack: SendWeatherData? = null
 
     private var infoCode = 0
-    private val apiManager = ApiManager()
 
+    private lateinit var dailyViewModel: DataViewModel
+    private lateinit var disposable: Disposable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,10 +69,10 @@ class DailyFragment : Fragment() {
 
         return binding.root
     }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        dailyViewModel = DataViewModel(MainRepository())
 
         setSharedPref()
 
@@ -70,6 +81,22 @@ class DailyFragment : Fragment() {
         sendDataCallBack = activity as SendWeatherData
         setGeneralInfo(location!!)
 
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        disposable.dispose()
+        Log.i(TAG, "onDetach: ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(TAG, "onDestroy: ")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.i(TAG, "onDestroyView: ")
     }
 
     private fun setSharedPref() {
@@ -81,42 +108,56 @@ class DailyFragment : Fragment() {
     }
 
     private fun setGeneralInfo(location: String) {
-        apiManager.getGeneralData(location, object : ApiManager.MyApiCallBack<WeatherData> {
-            override fun onSuccess(data: WeatherData) {
 
-                mData = data
+        dailyViewModel.getDailyWeatherData(location)
+            .synchronization()
+            .subscribe(object : SingleObserver<WeatherData> {
+                override fun onSubscribe(d: Disposable) {
 
-                sendDataCallBack!!.sendWeatherData(data)
+                    disposable = d
 
-                setWindData(data)
-                setRainChanceData(data)
-                setPressureData(data)
-                setUvIndexData(data)
-                setHourlyForecast(data)
-                setUpLineChart(data)
-                setUpBarChart(data)
-                setSunState(data)
-                setFiveHourLater()
+                }
 
-                handleShimmers()
+                override fun onError(e: Throwable) {
+
+                    requireContext().showToast(e.message ?: "null")
+
+                    AlertDialog.Builder(context)
+                        .setTitle("There is a problem")
+                        .setMessage("please refresh to get data")
+                        .setPositiveButton(
+                            "Refresh"
+                        ) { p0, p1 ->
+                            setGeneralInfo(location)
+                            p0.dismiss()
+                        }
+                        .setCancelable(false)
+                        .show()
+                }
+
+                override fun onSuccess(data: WeatherData) {
+
+                    mData = data
+
+                    sendDataCallBack!!.sendWeatherData(data)
+
+                    setWindData(data)
+                    setRainChanceData(data)
+                    setPressureData(data)
+                    setUvIndexData(data)
+                    setHourlyForecast(data)
+                    setUpLineChart(data)
+                    setUpBarChart(data)
+                    setSunState(data)
+                    setFiveHourLater()
+
+                    handleShimmers()
+
+                }
 
 
-            }
+            })
 
-            override fun onFailure(error: String) {
-                Toast.makeText(this@DailyFragment.requireContext(), error, Toast.LENGTH_SHORT)
-                    .show()
-
-                AlertDialog.Builder(context)
-                    .setTitle("There is a problem")
-                    .setMessage("please refresh to get data")
-                    .setPositiveButton("Refresh"
-                    ) { p0, p1 -> setGeneralInfo(location)
-                    p0.dismiss()}
-                    .setCancelable(false)
-                    .show()
-            }
-        })
     }
 
     interface SendWeatherData {

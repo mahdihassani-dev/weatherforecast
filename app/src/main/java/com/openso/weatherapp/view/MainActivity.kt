@@ -1,4 +1,4 @@
-package com.openso.weatherapp.ui
+package com.openso.weatherapp.view
 
 import android.content.Context
 import android.content.SharedPreferences

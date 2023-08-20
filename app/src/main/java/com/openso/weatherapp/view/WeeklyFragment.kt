@@ -1,21 +1,27 @@
-package com.openso.weatherapp.ui
+package com.openso.weatherapp.view
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openso.weatherapp.R
 import com.openso.weatherapp.databinding.FragmentWeeklyBinding
 import com.openso.weatherapp.model.WeatherData
 import com.openso.weatherapp.model.WeeklyItemData
-import com.openso.weatherapp.networking.ApiManager
+import com.openso.weatherapp.model.MainRepository
 import com.openso.weatherapp.utils.WeeklyRecyclerAdapter
+import com.openso.weatherapp.utils.showToast
+import com.openso.weatherapp.utils.synchronization
+import com.openso.weatherapp.viewmodel.DataViewModel
+import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -27,9 +33,7 @@ class WeeklyFragment : Fragment() {
 
     private var location: String? = null
 
-    lateinit var binding: FragmentWeeklyBinding
-
-    private val apiManager = ApiManager()
+    private lateinit var binding: FragmentWeeklyBinding
 
     private val dataSet = arrayListOf<WeeklyItemData>()
 
@@ -37,6 +41,9 @@ class WeeklyFragment : Fragment() {
         arrayListOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
     private var dataLoadedCallback: DataLoaded? = null
+
+    private lateinit var dataViewModel: DataViewModel
+    private lateinit var disposable: Disposable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +57,7 @@ class WeeklyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dataViewModel = DataViewModel(MainRepository())
 
         setSharedPref()
 
@@ -116,36 +124,53 @@ class WeeklyFragment : Fragment() {
 
     private fun setWeeklyData(location: String) {
 
-        apiManager.getGeneralData(location, object : ApiManager.MyApiCallBack<WeatherData> {
-            override fun onSuccess(data: WeatherData) {
+        dataViewModel
+            .getDailyWeatherData(location)
+            .synchronization()
+            .subscribe(object : SingleObserver<WeatherData> {
+                override fun onSubscribe(d: Disposable) {
+                    disposable = d
+                }
 
-                dataSet.clear()
+                override fun onError(e: Throwable) {
 
-                dataSet.add(setWeeklyItems(data, 0))
-                dataSet.add(setWeeklyItems(data, 1))
-                dataSet.add(setWeeklyItems(data, 2))
-                dataSet.add(setWeeklyItems(data, 3))
-                dataSet.add(setWeeklyItems(data, 4))
-                dataSet.add(setWeeklyItems(data, 5))
-                dataSet.add(setWeeklyItems(data, 6))
+                    requireContext().showToast(e.message ?: "null")
 
-                val adapter = WeeklyRecyclerAdapter(dataSet, true)
+                    AlertDialog.Builder(context)
+                        .setTitle("There is a problem")
+                        .setMessage("please refresh to get data")
+                        .setPositiveButton(
+                            "Refresh"
+                        ) { p0, p1 ->
+                            setWeeklyData(location)
+                            p0.dismiss()
+                        }
+                        .setCancelable(false)
+                        .show()
 
-                binding.weeklyRecyclerView.layoutManager = LinearLayoutManager(context)
-                binding.weeklyRecyclerView.adapter = adapter
+                }
 
-                dataLoadedCallback!!.loaded()
+                override fun onSuccess(data: WeatherData) {
+                    dataSet.clear()
 
+                    dataSet.add(setWeeklyItems(data, 0))
+                    dataSet.add(setWeeklyItems(data, 1))
+                    dataSet.add(setWeeklyItems(data, 2))
+                    dataSet.add(setWeeklyItems(data, 3))
+                    dataSet.add(setWeeklyItems(data, 4))
+                    dataSet.add(setWeeklyItems(data, 5))
+                    dataSet.add(setWeeklyItems(data, 6))
 
-            }
+                    val adapter = WeeklyRecyclerAdapter(dataSet, true)
 
-            override fun onFailure(error: String) {
+                    binding.weeklyRecyclerView.layoutManager = LinearLayoutManager(context)
+                    binding.weeklyRecyclerView.adapter = adapter
 
-                Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+                    dataLoadedCallback!!.loaded()
 
-            }
+                }
 
-        })
+            })
 
     }
 

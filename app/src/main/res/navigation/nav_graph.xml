@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dailyFragment"
-        android:name="com.openso.weatherapp.ui.DailyFragment"
+        android:name="com.openso.weatherapp.view.DailyFragment"
         android:label="fragment_daily"
         tools:layout="@layout/fragment_daily">
         <action
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/weeklyFragment"
-        android:name="com.openso.weatherapp.ui.WeeklyFragment"
+        android:name="com.openso.weatherapp.view.WeeklyFragment"
         android:label="fragment_weekly"
         tools:layout="@layout/fragment_weekly" >
         <action
