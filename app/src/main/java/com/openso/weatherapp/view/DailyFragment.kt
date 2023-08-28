@@ -44,6 +44,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 import java.util.Calendar
 import java.util.TimeZone
 
@@ -99,49 +100,53 @@ class DailyFragment : Fragment() {
 
     private fun setGeneralInfo(location: String) {
 
+        GlobalScope.launch(Dispatchers.IO) {
 
-        val errorHandler = CoroutineExceptionHandler { _, throwable ->
 
+            try {
+                val data = dailyViewModel.getDailyWeatherData(location)
+                mData = data
 
-            requireContext().showToast(throwable.message ?: "null")
+                withContext(Dispatchers.Main) {
 
-            AlertDialog.Builder(context)
-                .setTitle("There is a problem")
-                .setMessage("please refresh to get data")
-                .setPositiveButton(
-                    "Refresh"
-                ) { p0, p1 ->
-                    setGeneralInfo(location)
-                    p0.dismiss()
+                    sendDataCallBack!!.sendWeatherData(data)
+                    setWindData(data)
+                    setRainChanceData(data)
+                    setPressureData(data)
+                    setUvIndexData(data)
+                    setHourlyForecast(data)
+                    setUpLineChart(data)
+                    setUpBarChart(data)
+                    setSunState(data)
+                    setFiveHourLater()
+
+                    handleShimmers()
+                    Log.i("check", Thread.currentThread().name)
+
                 }
-                .setCancelable(false)
-                .show()
 
-        }
+            } catch (ex : Exception){
 
-        GlobalScope.launch(Dispatchers.IO + errorHandler) {
+                withContext(Dispatchers.Main){
 
+                    requireContext().showToast(ex.message ?: "null")
 
-            val data = dailyViewModel.getDailyWeatherData(location)
-            mData = data
+                    AlertDialog.Builder(context)
+                        .setTitle("There is a problem")
+                        .setMessage("please refresh to get data")
+                        .setPositiveButton(
+                            "Refresh"
+                        ) { p0, p1 ->
+                            setGeneralInfo(location)
+                            p0.dismiss()
+                        }
+                        .setCancelable(false)
+                        .show()
+                }
 
-            withContext(Dispatchers.Main) {
-
-                sendDataCallBack!!.sendWeatherData(data)
-                setWindData(data)
-                setRainChanceData(data)
-                setPressureData(data)
-                setUvIndexData(data)
-                setHourlyForecast(data)
-                setUpLineChart(data)
-                setUpBarChart(data)
-                setSunState(data)
-                setFiveHourLater()
-
-                handleShimmers()
-                Log.i("check", Thread.currentThread().name)
 
             }
+
 
 
         }

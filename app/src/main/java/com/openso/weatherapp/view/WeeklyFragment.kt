@@ -29,6 +29,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -130,45 +131,50 @@ class WeeklyFragment : Fragment() {
 
     private fun setWeeklyData(location: String) {
 
-        val errorHandler = CoroutineExceptionHandler { _, throwable ->
+        GlobalScope.launch() {
 
-            requireContext().showToast(throwable.message ?: "null")
+            try {
+                val data = dataViewModel.getDailyWeatherData(location)
 
-            AlertDialog.Builder(context)
-                .setTitle("There is a problem")
-                .setMessage("please refresh to get data")
-                .setPositiveButton(
-                    "Refresh"
-                ) { p0, p1 ->
-                    setWeeklyData(location)
-                    p0.dismiss()
+                withContext(Dispatchers.Main) {
+
+                    dataSet.clear()
+
+                    dataSet.add(setWeeklyItems(data, 0))
+                    dataSet.add(setWeeklyItems(data, 1))
+                    dataSet.add(setWeeklyItems(data, 2))
+                    dataSet.add(setWeeklyItems(data, 3))
+                    dataSet.add(setWeeklyItems(data, 4))
+                    dataSet.add(setWeeklyItems(data, 5))
+                    dataSet.add(setWeeklyItems(data, 6))
+
+                    val adapter = WeeklyRecyclerAdapter(dataSet, true)
+
+                    binding.weeklyRecyclerView.layoutManager = LinearLayoutManager(context)
+                    binding.weeklyRecyclerView.adapter = adapter
+
+                    dataLoadedCallback!!.loaded()
                 }
-                .setCancelable(false)
-                .show()
+            }catch (ex : Exception){
 
-        }
+                withContext(Dispatchers.IO){
+                    requireContext().showToast(ex.message ?: "null")
 
-        GlobalScope.launch(errorHandler) {
-            val data = dataViewModel.getDailyWeatherData(location)
+                    AlertDialog.Builder(context)
+                        .setTitle("There is a problem")
+                        .setMessage("please refresh to get data")
+                        .setPositiveButton(
+                            "Refresh"
+                        ) { p0, p1 ->
+                            setWeeklyData(location)
+                            p0.dismiss()
+                        }
+                        .setCancelable(false)
+                        .show()
+                }
 
-            withContext(Dispatchers.Main) {
 
-                dataSet.clear()
 
-                dataSet.add(setWeeklyItems(data, 0))
-                dataSet.add(setWeeklyItems(data, 1))
-                dataSet.add(setWeeklyItems(data, 2))
-                dataSet.add(setWeeklyItems(data, 3))
-                dataSet.add(setWeeklyItems(data, 4))
-                dataSet.add(setWeeklyItems(data, 5))
-                dataSet.add(setWeeklyItems(data, 6))
-
-                val adapter = WeeklyRecyclerAdapter(dataSet, true)
-
-                binding.weeklyRecyclerView.layoutManager = LinearLayoutManager(context)
-                binding.weeklyRecyclerView.adapter = adapter
-
-                dataLoadedCallback!!.loaded()
             }
 
         }
