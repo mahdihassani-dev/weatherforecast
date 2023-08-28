@@ -1,6 +1,7 @@
 # WeatherForecastApp
-an Excersice with apis and material design <br />
-online Forecast based on LanLng that you set via map
+an Excersice with apis and material design and also mvvm + rxjava <br />
+online Forecast based on LatLng that you set via map
+
 
 <br />
 
