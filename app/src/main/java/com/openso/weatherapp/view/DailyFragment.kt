@@ -39,6 +39,11 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Calendar
 import java.util.TimeZone
 
@@ -58,7 +63,6 @@ class DailyFragment : Fragment() {
     private var infoCode = 0
 
     private lateinit var dailyViewModel: DataViewModel
-    private lateinit var disposable: Disposable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,6 +73,7 @@ class DailyFragment : Fragment() {
 
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -83,21 +88,6 @@ class DailyFragment : Fragment() {
 
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        disposable.dispose()
-        Log.i(TAG, "onDetach: ")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i(TAG, "onDestroy: ")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.i(TAG, "onDestroyView: ")
-    }
 
     private fun setSharedPref() {
 
@@ -109,54 +99,52 @@ class DailyFragment : Fragment() {
 
     private fun setGeneralInfo(location: String) {
 
-        dailyViewModel.getDailyWeatherData(location)
-            .synchronization()
-            .subscribe(object : SingleObserver<WeatherData> {
-                override fun onSubscribe(d: Disposable) {
 
-                    disposable = d
+        val errorHandler = CoroutineExceptionHandler { _, throwable ->
 
+
+            requireContext().showToast(throwable.message ?: "null")
+
+            AlertDialog.Builder(context)
+                .setTitle("There is a problem")
+                .setMessage("please refresh to get data")
+                .setPositiveButton(
+                    "Refresh"
+                ) { p0, p1 ->
+                    setGeneralInfo(location)
+                    p0.dismiss()
                 }
+                .setCancelable(false)
+                .show()
 
-                override fun onError(e: Throwable) {
+        }
 
-                    requireContext().showToast(e.message ?: "null")
-
-                    AlertDialog.Builder(context)
-                        .setTitle("There is a problem")
-                        .setMessage("please refresh to get data")
-                        .setPositiveButton(
-                            "Refresh"
-                        ) { p0, p1 ->
-                            setGeneralInfo(location)
-                            p0.dismiss()
-                        }
-                        .setCancelable(false)
-                        .show()
-                }
-
-                override fun onSuccess(data: WeatherData) {
-
-                    mData = data
-
-                    sendDataCallBack!!.sendWeatherData(data)
-
-                    setWindData(data)
-                    setRainChanceData(data)
-                    setPressureData(data)
-                    setUvIndexData(data)
-                    setHourlyForecast(data)
-                    setUpLineChart(data)
-                    setUpBarChart(data)
-                    setSunState(data)
-                    setFiveHourLater()
-
-                    handleShimmers()
-
-                }
+        GlobalScope.launch(Dispatchers.IO + errorHandler) {
 
 
-            })
+            val data = dailyViewModel.getDailyWeatherData(location)
+            mData = data
+
+            withContext(Dispatchers.Main) {
+
+                sendDataCallBack!!.sendWeatherData(data)
+                setWindData(data)
+                setRainChanceData(data)
+                setPressureData(data)
+                setUvIndexData(data)
+                setHourlyForecast(data)
+                setUpLineChart(data)
+                setUpBarChart(data)
+                setSunState(data)
+                setFiveHourLater()
+
+                handleShimmers()
+                Log.i("check", Thread.currentThread().name)
+
+            }
+
+
+        }
 
     }
 

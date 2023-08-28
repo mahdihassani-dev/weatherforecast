@@ -22,7 +22,7 @@ class MainRepository {
 
     }
 
-    fun getWeatherData(location: String) : Single<WeatherData> {
+    suspend fun getWeatherData(location: String) : WeatherData {
         return apiService.getGeneralWeatherData(location)
     }
 

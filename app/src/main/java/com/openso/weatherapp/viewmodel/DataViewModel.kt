@@ -8,7 +8,7 @@ class DataViewModel(
     private val mainRepository: MainRepository
 ) {
 
-    fun getDailyWeatherData(location : String) : Single<WeatherData> {
+    suspend fun getDailyWeatherData(location: String): WeatherData {
 
         return mainRepository
             .getWeatherData(location)
