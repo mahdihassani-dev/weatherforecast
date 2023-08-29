@@ -1,5 +1,5 @@
 # WeatherForecastApp
-an Excersice with apis and material design <br />
+an Excersice with apis and material design using mvvm + kotlin coroutines + koin <br />
 online Forecast based on LanLng that you set via map
 
 <br />
