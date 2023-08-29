@@ -4,12 +4,12 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.openso.weatherapp.di.NetworkProvider
 import com.openso.weatherapp.R
 import com.openso.weatherapp.databinding.FragmentWeeklyBinding
 import com.openso.weatherapp.model.WeatherData
@@ -17,18 +17,12 @@ import com.openso.weatherapp.model.WeeklyItemData
 import com.openso.weatherapp.model.MainRepository
 import com.openso.weatherapp.utils.WeeklyRecyclerAdapter
 import com.openso.weatherapp.utils.showToast
-import com.openso.weatherapp.utils.synchronization
 import com.openso.weatherapp.viewmodel.DataViewModel
-import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.inject
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -52,6 +46,8 @@ class WeeklyFragment : Fragment() {
 
     private lateinit var dataViewModel: DataViewModel
 
+    private val apiServiceProvider : NetworkProvider by inject()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,7 +60,7 @@ class WeeklyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataViewModel = DataViewModel(MainRepository())
+        dataViewModel = DataViewModel(MainRepository(apiServiceProvider.provideNetwork()))
 
         setSharedPref()
 

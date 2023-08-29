@@ -17,7 +17,7 @@ const val CHIP_CHANGE = "chip_changes"
 
 class MainActivity : AppCompatActivity() , MapFragmentDialog.GetLatLng, DailyFragment.SendWeatherData, WeeklyFragment.DataLoaded{
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     private var sharedPreferences: SharedPreferences ?= null
     private var editor: SharedPreferences.Editor ?= null
