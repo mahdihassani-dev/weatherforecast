@@ -153,7 +153,7 @@ class WeeklyFragment : Fragment() {
                 }
             }catch (ex : Exception){
 
-                withContext(Dispatchers.IO){
+                withContext(Dispatchers.Main){
                     requireContext().showToast(ex.message ?: "null")
 
                     AlertDialog.Builder(context)

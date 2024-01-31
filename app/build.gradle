@@ -11,14 +11,14 @@ android {
     namespace 'com.openso.weatherapp'
     compileSdk 33
 
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'armeabi-v7a'
-            universalApk false
-        }
-    }
+//    splits {
+//        abi {
+//            enable true
+//            reset()
+//            include 'armeabi-v7a'
+//            universalApk false
+//        }
+//    }
 
     defaultConfig {
         applicationId "com.openso.weatherapp"
