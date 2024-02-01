@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WeatherApp</string>
+    <string name="app_name">myForecast</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="weekly">Weekly</string>
